@@ -1,0 +1,153 @@
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a routerLink="/">Home</a>
+        </li>
+        <li>
+            <span>Add Tasks</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS 1-->
+
+<div class="clearfix"></div>
+<!-- END DASHBOARD STATS 1-->
+<div class="form__structure">
+    <div *ngIf="responseMessage != ''" class="alert alert-success">
+        <p>{{responseMessage}}</p>
+    </div>
+
+    <form (ngSubmit)="action == 'add' ? add() : update()" #userForm="ngForm" class="form-horizontal form-row-seperated">
+        <div class="form-body">
+            <section class="section-head">
+                <h3>Task Details</h3>
+            </section>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Title
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input [(ngModel)]="task.title" name="title" class="form-control form-control-inline date-picker" required type="text" value=""
+                        #title="ngModel" />
+                    <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+                        <div *ngIf="title.errors.required">
+                            Title is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" *ngIf="role == constant.AdminRole">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Users
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select [(ngModel)]="task.user_id" name="user_id" class="form-control form-control-inline date-picker" required type="text"
+                        #user_id="ngModel">
+                        <option value="" selected>Please Select</option>
+                        <option *ngFor="let user of users" value="{{user.id}}">{{user.fullName}}</option>
+                    </select>
+                    <div *ngIf="user_id.invalid && (user_id.dirty || user_id.touched)" class="alert alert-danger">
+                        <div *ngIf="user_id.errors.required">
+                            User is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- project -->
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Projects
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select [(ngModel)]="task.project_id" name="project_id" class="form-control form-control-inline date-picker" required type="text"
+                        #project_id="ngModel">
+                        <option value="" selected>Please Select</option>
+                        <option *ngFor="let project of projects" value="{{project.id}}">{{project.name}}</option>
+                    </select>
+                    <div *ngIf="project_id.invalid && (project_id.dirty || project_id.touched)" class="alert alert-danger">
+                        <div *ngIf="project_id.errors.required">
+                            Project is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- category -->
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Category
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select [(ngModel)]="task.category_id" name="category_id" class="form-control form-control-inline date-picker" required type="text"
+                        #category_id="ngModel">
+                        <option value="" selected>Please Select</option>
+                        <option *ngFor="let category of constant.Category" value="{{category.id}}">{{category.name}}</option>
+                    </select>
+                    <div *ngIf="category_id.invalid && (category_id.dirty || category_id.touched)" class="alert alert-danger">
+                        <div *ngIf="category_id.errors.required">
+                            Category is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Duration -->
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Duration
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input [(ngModel)]="task.duration" name="duration" class="form-control form-control-inline date-picker" required type="number"
+                        placeholder="Duration (in hours)" value="" #duration="ngModel" />
+                    <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="alert alert-danger">
+                        <div *ngIf="duration.errors.required">
+                            Duration is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Status
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select [(ngModel)]="task.status" name="status" class="form-control form-control-inline date-picker" required type="text"
+                        #status="ngModel">
+                        <option value="" selected>Please Select</option>
+                        <option *ngFor="let status of constant.Status" value="{{status.id}}">{{status.name}}</option>
+                    </select>
+                    <div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
+                        <div *ngIf="status.errors.required">
+                            Status is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Description -->
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Description :
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <textarea [(ngModel)]="task.description" name="description" class="form-control" rows="4" type="text" value="" #description="ngModel"> </textarea>
+                </div>
+            </div>
+            <!-- Remarks -->
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Remarks :
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <textarea [(ngModel)]="task.remarks" name="remarks" class="form-control form-control-inline date-picker" rows="4"  type="text" value=""
+                        #remarks="ngModel"></textarea>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-4 col-sm-offset-4 col-xs-offset-0">
+                    <button type="submit" [disabled]="!userForm.form.valid" class="btn blue">Submit</button>
+                    <button type="reset" href="javascript:;" class="btn grey" (click)="userForm.reset()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,113 @@
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a routerLink="/">Home</a>
+    </li>
+    <li>
+      <span>Users</span>
+    </li>
+  </ul>
+</div>
+<!-- END PAGE BAR -->
+
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS 1-->
+
+<div class="clearfix"></div>
+<div class="btn-group pull-right" style="margin-top:10px">
+  <button routerLink="/users/add" class="btn green">Add User</button>
+</div>
+<div class="clearfix"></div>
+<!-- END DASHBOARD STATS 1-->
+<div class="data__filter">
+  <div class="form__structure shadow">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-group">
+              <label class="control-label col-md-4 col-sm-4 col-xs-12">Username:</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input [(ngModel)]="searchUsername" type="text" class="form-control" placeholder="Username" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-group">
+              <label class="control-label col-md-4 col-sm-4 col-xs-12">Firstname:</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input [(ngModel)]="searchFullname" type="text" class="form-control" placeholder="Firstname" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="action-buttons text-center">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <button href="javascript:;" class="btn blue" (click)="searchData()">Submit</button>
+            <button type="reset" href="javascript:;" class="btn grey" (click)="clearSearch()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table__structure">
+  <app-paginate [message]="true" [pagination]="pagination"></app-paginate>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-checkable order-column" id="sample_1_2">
+      <thead>
+        <tr>
+
+          <th>
+            <a appSorting (click)="onSortChange('id')">Id</a>
+          </th>
+
+          <th>
+            <a appSorting (click)="onSortChange('username')">Username</a>
+          </th>
+
+          <th>
+            <a appSorting (click)="onSortChange('firstname')">Firstname</a>
+          </th>
+
+          <th>
+            <a appSorting (click)="onSortChange('lastname')">Lastname</a>
+          </th>
+
+          <th>
+            <a appSorting (click)="onSortChange('is_active')">Status</a>
+          </th>
+
+          <th> Actions </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd gradeX" *ngFor="let user of users">
+          <td> {{ user.id }} </td>
+          <td> {{ user.username }} </td>
+          <td> {{ user.firstname }} </td>
+          <td> {{ user.lastname }} </td>
+          <td>
+            <a (click)="toggle(user)">
+              <span class="label label-sm " [class.label-success]="user.is_active == 1" [class.label-danger]="user.is_active == 0">
+                {{ user.is_active == 1 ? 'Active' : 'Inactive' }}
+              </span>
+            </a>
+          </td>
+          <td>
+            <a routerLink="/users/edit/{{ user.id }}" title="View" class="icon lightBlue-color">
+              <i class=" fa fa-edit"></i>
+            </a>
+
+            <a (click)="delete(user.id)" title="View" class="icon lightBlue-color">
+              <i class=" fa fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-paginate [message]="false" [pagination]="pagination" (onPageChange)="onPageChange($event)"></app-paginate>
+</div>

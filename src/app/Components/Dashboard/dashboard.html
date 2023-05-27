@@ -1,0 +1,77 @@
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a routerLink="/">Home</a>
+    </li>
+    <li>
+      <span>Tasks</span>
+    </li>
+  </ul>
+</div>
+<!-- END PAGE BAR -->
+
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS 1-->
+
+<div class="clearfix"></div>
+<!-- END DASHBOARD STATS 1-->
+<div class="btn-group pull-right" style="margin-top:10px">
+</div>
+<div class="clearfix"></div>
+<div class="data__filter">
+  <div class="form__structure shadow">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12" *ngIf="role == constant.AdminRole">
+            <div class="form-group">
+              <label class="control-label col-md-4 col-sm-4 col-xs-12">User:</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select [(ngModel)]="searchUsername" type="text" class="form-control">
+                  <option value="" selected>Please Select</option>
+                  <option *ngFor="let user of users" value="{{user.id}}">{{user.fullName}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-group">
+              <label class="control-label col-md-4 col-sm-4 col-xs-12">From Date:</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input bsDatepicker [(ngModel)]="searchFromDate" value="{{ FromDate | date:MMM}}" class="form-control" type="text" class="form-control" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-group">
+              <label class="control-label col-md-4 col-sm-4 col-xs-12">To Date:</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input bsDatepicker [(ngModel)]="searchToDate"  value="{{ Todate | date:mediumDate}}" class="form-control" type="text" class="form-control" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="action-buttons text-center">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <button href="javascript:;" class="btn blue" (click)="searchData()">Submit</button>
+            <button type="reset" href="javascript:;" class="btn grey" (click)="clearSearch()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table__structure">
+ 
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-checkable order-column" id="sample_1_2">
+      <h1>Pie Chart</h1>
+      <google-chart #cchart [data]="pieChartData"></google-chart>
+      <div class="hegiht">
+      </div>
+    </table>
+  </div>
+</div>

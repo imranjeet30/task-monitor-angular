@@ -1,0 +1,127 @@
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a routerLink="/">Home</a>
+    </li>
+    <li>
+      <span>Projects</span>
+    </li>
+  </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS 1-->
+<div class="clearfix"></div>
+<div class="btn-group pull-right" style="margin-top:10px">
+  <button routerLink="/projects/add" class="btn green">Add Project</button>
+</div>
+<div class="clearfix"></div>
+<!-- END DASHBOARD STATS 1-->
+<div class="data__filter">
+  <div class="form__structure shadow">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-group">
+              <label class="control-label col-md-4 col-sm-4 col-xs-12">Title:</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input [(ngModel)]="searchname" type="text" class="form-control" placeholder="Title" />
+              </div>
+            </div>
+          </div>
+          <div class="action-buttons text-center col-md-6 col-sm-6 col-xs-12" style="margin:0">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <button href="javascript:;" class="btn blue" (click)="searchData()">Submit</button>
+              <button type="reset" href="javascript:;" class="btn grey" (click)="clearSearch()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table__structure">
+  <app-paginate [message]="true" [pagination]="pagination"></app-paginate>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-checkable order-column" id="sample_1_2">
+      <thead>
+        <tr>
+          <!-- <th>
+              <a (click)="massDelete()">Delete</a>
+            </th> -->
+
+          <th>
+            <a appSorting (click)="onSortChange('id')">Id</a>
+          </th>
+
+          <th>
+            <a appSorting (click)="onSortChange('name')">Title</a>
+          </th>
+          <th>
+            <a appSorting (click)="onSortChange('team_leader')"> Leader</a>
+          </th>
+          <th>
+            <a appSorting (click)="onSortChange('team_member')"> Members</a>
+          </th>
+
+          <th>
+            <a appSorting (click)="onSortChange('url')">URL</a>
+          </th>
+          <th>
+            <a appSorting (click)="onSortChange('technologies')">Technologies</a>
+          </th>
+          <th>
+            <a appSorting (click)="onSortChange('is_active')">Status</a>
+          </th>
+          <th>
+            <a appSorting (click)="onSortChange('is_closed')">Closed</a>
+          </th>
+
+          <th> Actions </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="odd gradeX" *ngFor="let Project of Projects">
+          <!-- <td>
+              <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                <input type="checkbox" ng-model="selected" (change)="exist(Project)" (click)="toggleSelection(Project)">
+                <span></span>
+              </label>
+            </td> -->
+          <td width="10%"> {{ Project.id }} </td>
+          <td> {{ Project.name }} </td>
+          <td> {{ Project.team_leader }} </td>
+          <td> {{ Project.team_member }} </td>
+          <td width="30%"> {{ Project.url }} </td>
+          <td> {{ Project.technologies }} </td>
+          <td width="10%">
+            <a (click)="toggle(Project)">
+              <span class="label label-sm " [class.label-success]="Project.is_active == 1" [class.label-danger]="Project.is_active == 0">
+                {{ Project.is_active == 1 ? 'Active' : 'Inactive' }}
+              </span>
+            </a>
+          </td>
+          <td width="10%">
+            <span class="label label-sm " [class.label-danger]="Project.is_closed == 1" [class.label-success]="Project.is_closed == 0">
+              {{ Project.is_closed == 1 ? 'Yes' : 'No' }}
+            </span>
+          </td>
+          <td width="10%">
+            <a routerLink="/projects/edit/{{ Project.id }}" title="View" class="icon lightBlue-color">
+              <i class=" fa fa-edit"></i>
+            </a>
+            <a (click)="delete(Project.id)" title="View" class="icon lightBlue-color">
+              <i class=" fa fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-paginate [message]="false" [pagination]="pagination" (onPageChange)="onPageChange($event)"></app-paginate>
+</div>

@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all';
+@import '/assets/global/plugins/font-awesome/css/font-awesome.min.css';
+@import '/assets/global/plugins/simple-line-icons/simple-line-icons.min.css';
+@import '/assets/global/plugins/bootstrap/css/bootstrap.min.css';
+@import '/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css';
+@import '/assets/global/css/components.min.css';
+@import '/assets/global/css/plugins.min.css';
+
+

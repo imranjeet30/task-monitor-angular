@@ -1,0 +1,23 @@
+<div class="page-wrapper">
+    <app-header></app-header>
+    <!-- BEGIN HEADER & CONTENT DIVIDER -->
+    <div class="clearfix"> </div>
+    <!-- END HEADER & CONTENT DIVIDER -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <app-sidebar></app-sidebar>
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+                <!-- BEGIN PAGE HEADER-->
+                <!-- <flash-messages  style="padding-top: 30px;  float: left; width:100%" ></flash-messages> -->
+                <flash-messages ></flash-messages>
+                <router-outlet></router-outlet>
+            </div>
+            <!-- END CONTENT BODY -->
+        </div>
+    </div>
+    <!-- END CONTAINER -->
+    <app-footer></app-footer>
+</div>

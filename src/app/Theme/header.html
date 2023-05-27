@@ -1,0 +1,108 @@
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+  <!-- BEGIN HEADER INNER -->
+  <div class="page-header-inner ">
+    <app-logo></app-logo>
+    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+      <span></span>
+    </a>
+    <!-- END RESPONSIVE MENU TOGGLER -->
+    <!-- BEGIN TOP NAVIGATION MENU -->
+    <div class="top-menu">
+      <ul class="nav navbar-nav pull-right">
+        <!-- BEGIN NOTIFICATION DROPDOWN -->
+        <!-- DOC: Apply "dropdown-dark" class after "dropdown-extended" to change the dropdown styte -->
+        <!-- DOC: Apply "dropdown-hoverable" class after below "dropdown" and remove data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to enable hover dropdown mode -->
+        <!-- DOC: Remove "dropdown-hoverable" and add data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to the below A element with dropdown-toggle class -->
+        <!-- BEGIN USER LOGIN DROPDOWN -->
+        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+        <li class="dropdown dropdown-user">
+          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+            <!-- <img alt="" class="img-circle" src="assets/layouts/layout/img/avatar3_small.jpg" /> -->
+            <span class="username username-hide-on-mobile"> {{username}} </span>
+            <i class="fa fa-angle-down"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-default">
+            <li>
+              <!-- <a href="page_user_profile_1.html">
+                <i class="icon-key"></i> Change Password </a> -->
+              <a data-toggle="modal" data-target="#modalLoginForm">
+                <i class="icon-key"></i> Change Password
+              </a>
+            </li>
+            <li>
+              <a (click)="logout()">
+                <i class="icon-logout"></i> Log Out </a>
+            </li>
+          </ul>
+        </li>
+        <!-- END USER LOGIN DROPDOWN -->
+        <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+        <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+        <!-- <li class="dropdown dropdown-quick-sidebar-toggler">
+                  <a href="javascript:;" class="dropdown-toggle">
+                    <i class="icon-logout"></i>
+                  </a>
+                </li> -->
+        <!-- END QUICK SIDEBAR TOGGLER -->
+      </ul>
+    </div>
+    <!-- END TOP NAVIGATION MENU -->
+  </div>
+  <!-- END HEADER INNER -->
+</div>
+<!-- END HEADER -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalLoginForm"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold"> Change Password </h4>
+        <button type="button" class="close" id="close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="ResponseMessage != ''" class="alert alert-danger">
+          <div >
+            {{ResponseMessage}}
+          </div>
+      </div>
+      <!-- <flash-messages ></flash-messages> -->
+      <form (ngSubmit)="change()" #userForm="ngForm" class="form-horizontal form-row-seperated">
+        <div class="modal-body mx-3">
+          <div class="md-form mb-4">
+            <input [(ngModel)]="user.oldpassword" name="oldpassword"
+             class="form-control form-control-inline date-picker" required size="16"
+            type="password" value="" #oldpassword="ngModel" />
+            <label data-error="wrong" data-success="right" for="defaultForm-pass">Old password</label>
+          </div>
+
+          <div class="md-form mb-4">
+            <input [(ngModel)]="user.newpassword" name="newpassword"
+            class="form-control form-control-inline date-picker" required size="16"
+           type="password" value="" #newpassword="ngModel" />
+            <label data-error="wrong" data-success="right" for="defaultForm-pass">New password</label>
+          </div>
+
+          <div class="md-form mb-4">
+            <input [(ngModel)]="user.confirmpassword" name="confirmpassword"
+            class="form-control form-control-inline date-picker" required size="16"
+           type="password" value="" #confirmpassword="ngModel" />
+            <label data-error="wrong" data-success="right" for="defaultForm-pass">Confirm password</label>
+            <div *ngIf="confirmed == 0" class="alert alert-danger">
+                <div >
+                   password didnt match
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+            <button type="submit" [disabled]="!userForm.form.valid" class="btn blue">Submit</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

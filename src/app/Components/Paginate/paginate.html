@@ -1,0 +1,24 @@
+<!-- Shows pagination stats data on the left of the table -->
+<div *ngIf="message==true" class="table__counters">Page {{ pagination.current_page }} of {{ pagination.total_pages }},
+  showing {{ pagination.per_page }} records out of {{ pagination.total }} total
+   <!-- starting on record {{ pagination.from }},
+  ending on {{ pagination.to }}  -->
+</div>
+<!-- Shows pagination links on the right of the table -->
+<nav *ngIf="message==false" aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <a (click)="onPagePrev(pagination.current_page)" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li *ngFor="let page of pagination.pagination_links" [class.active]="page ==pagination.current_page ?true : false">
+      <a (click)="onPageClick(page)">{{page}}</a>
+    </li>
+    <li>
+      <a  (click)="onPageNext(pagination.total_pages,pagination.current_page)" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

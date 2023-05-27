@@ -1,0 +1,102 @@
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a routerLink="/">Home</a>
+        </li>
+        <li>
+            <span>Add Users</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS 1-->
+
+<div class="clearfix"></div>
+<!-- END DASHBOARD STATS 1-->
+<div class="form__structure">
+    <form (ngSubmit)="action == 'add' ? add() : update()" #userForm="ngForm" class="form-horizontal form-row-seperated">
+        <div class="form-body">
+            <section class="section-head">
+                <h3>User Details</h3>
+            </section>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Username
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input [(ngModel)]="user.username" name="username" class="form-control form-control-inline date-picker" required email type="text"
+                        value="" #username="ngModel" />
+
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+                        <div *ngIf="username.errors.email">
+                            Valid email is required.
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <div *ngIf="responseMessage != ''" class="alert alert-danger">
+                                <p>{{responseMessage}}</p>
+                            </div>
+                            <!-- <flash-messages ></flash-messages> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="form-group" *ngIf="action == 'add' ">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Password
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input [(ngModel)]="user.password" name="password" class="form-control form-control-inline date-picker" required size="16"
+                        type="password" value="" #password="ngModel" />
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                        <div *ngIf="password.errors.required">
+                            Password is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Firstname
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input [(ngModel)]="user.firstname" name="firstname" class="form-control form-control-inline date-picker" required size="16"
+                        type="text" value="" #firstname="ngModel" />
+                    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
+                        <div *ngIf="firstname.errors.required">
+                            Firstname is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Lastname
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input [(ngModel)]="user.lastname" name="lastname" class="form-control form-control-inline date-picker" required type="text"
+                        value="" #lastname="ngModel" />
+                    <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)" class="alert alert-danger">
+                        <div *ngIf="lastname.errors.required">
+                            Lastname is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-4 col-sm-offset-4 col-xs-offset-0">
+                    <button type="submit" [disabled]="!userForm.form.valid" class="btn blue">Submit</button>
+                    <button type="reset" href="javascript:;" class="btn grey" (click)="userForm.reset()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

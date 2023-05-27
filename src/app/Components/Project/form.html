@@ -1,0 +1,104 @@
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a routerLink="/">Home</a>
+        </li>
+        <li>
+            <span>Add Project</span>
+        </li>
+    </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- END PAGE HEADER-->
+<!-- BEGIN DASHBOARD STATS 1-->
+
+<div class="clearfix"></div>
+<!-- END DASHBOARD STATS 1-->
+<div class="form__structure">
+    <div *ngIf="responseMessage != ''" class="alert alert-success">
+        <p>{{responseMessage}}</p>
+    </div>
+    <form (ngSubmit)="action == 'add' ? add() : update()" #userForm="ngForm" class="form-horizontal form-row-seperated">
+        <div class="form-body">
+            <section class="section-head">
+                <h3>Project Details</h3>
+            </section>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Title
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input [(ngModel)]="project.name" name="name" class="form-control form-control-inline date-picker" required type="text" value=""
+                        #name="ngModel" />
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+                        <div *ngIf="name.errors.required">
+                            Project title is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">URL:</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input [(ngModel)]="project.url" name="url" class="form-control form-control-inline date-picker"  Url type="url"
+                        value="" #url="ngModel" />
+                </div>
+            </div>
+
+            <!-- team leader -->
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Leader
+                    <span>*</span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select [(ngModel)]="project.team_leader_id" name="team_leader_id" class="form-control form-control-inline date-picker" required
+                        type="number" #team_leader_id="ngModel">
+                        <option value="" selected>Please Select</option>
+                        <option *ngFor="let user of users" value="{{user.id}}">{{user.fullName}}</option>
+                    </select>
+                    <div *ngIf="team_leader_id.invalid && (team_leader_id.dirty || team_leader_id.touched)" class="alert alert-danger">
+                        <div *ngIf="team_leader_id.errors.required">
+                            Project Leader is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Members:</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <select multiple [(ngModel)]="project.user_id" id="project-user" name="user_id" class="form-control form-control-inliner"
+                        type="text" #user_id="ngModel">
+                        <option *ngFor="let user of users" [disabled]="user.id == project.team_leader_id ? true : false " value="{{user.id}}">{{user.fullName}}</option>
+                    </select>
+                </div>
+            </div>
+            <!--  -->
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Technologies:</label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input [(ngModel)]="project.technologies" name="technologies" class="form-control "  Url type="text"
+                        value="" #technologies="ngModel" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4 col-xs-12">Closed
+                    <span></span> :</label>
+                <div class="col-md-6 col-sm-6 col-xs-12" style="  margin: .6%;">
+                    <label class="mt-checkbox mt-checkbox-outline">
+                        <input [(ngModel)]="project.is_closed" type="checkbox" value="1" name="test" />
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <div class="col-md-8 col-sm-8 col-xs-12 col-md-offset-4 col-sm-offset-4 col-xs-offset-0">
+                    <button type="submit" [disabled]="!userForm.form.valid" class="btn blue">Submit</button>
+                    <button type="reset" href="javascript:;" class="btn grey" (click)="userForm.reset()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
